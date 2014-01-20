@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMPE1700 Brandon Foote Assignment 1b", "CMPE1700 Brandon Foote Assignment 1b\CMPE1700 Brandon Foote Assignment 1b.csproj", "{E6165C55-0F21-4554-A737-3F4DAFD643FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6165C55-0F21-4554-A737-3F4DAFD643FA}.Debug|x86.ActiveCfg = Debug|x86
+		{E6165C55-0F21-4554-A737-3F4DAFD643FA}.Debug|x86.Build.0 = Debug|x86
+		{E6165C55-0F21-4554-A737-3F4DAFD643FA}.Release|x86.ActiveCfg = Release|x86
+		{E6165C55-0F21-4554-A737-3F4DAFD643FA}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
