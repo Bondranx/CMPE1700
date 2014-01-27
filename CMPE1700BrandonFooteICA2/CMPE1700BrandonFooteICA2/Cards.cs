@@ -21,6 +21,7 @@ namespace CMPE1700BrandonFooteICA2
                 }
             }
 
+
             Console.ReadLine();
         }
     }
