@@ -43,13 +43,29 @@ namespace CMPE1700BrandonFooteICA3
         static void Main(string[] args)
         {
             StreamReader inputFile;
+            int newGrade = 0;
+            int counter = 0;
+            string inputHolder = "";
+            string[] holder = null;
+            List<int> gradeHolder = new List<int>();
             
             string input = "";
-            Console.WriteLine("Enter the name of the file you would like to read from: ");
+            Console.Write("Enter the name of the file you would like to read from: ");
             input = Console.ReadLine();
             try
             {
                 inputFile = new StreamReader(input);
+                while (inputFile.ReadLine() != null)
+                inputHolder = inputFile.ReadLine();
+                {
+                    holder = input.Split(' ', ',');
+                    for (int count = 2; count < holder.Length - 1; count++)
+                    {
+                        int.TryParse(holder[count], out newGrade);
+                        gradeHolder.Add(newGrade);
+                    }
+                }
+
             }
             catch (Exception e)
             {
