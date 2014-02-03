@@ -43,11 +43,13 @@ namespace CMPE1700BrandonFooteICA3
         static void Main(string[] args)
         {
             StreamReader inputFile;
-            int newGrade = 0;
-            int counter = 0;
+            double newGrade = 0;
+            string studentName = "";
+            string IDNum = "";
             string inputHolder = "";
             string[] holder = null;
-            List<int> gradeHolder = new List<int>();
+            List<double> gradeHolder;
+            List<Student> studentList = new List<Student>();
             
             string input = "";
             Console.Write("Enter the name of the file you would like to read from: ");
@@ -55,23 +57,38 @@ namespace CMPE1700BrandonFooteICA3
             try
             {
                 inputFile = new StreamReader(input);
-                while (inputFile.ReadLine() != null)
-                inputHolder = inputFile.ReadLine();
+                while (inputHolder != null)
                 {
-                    holder = input.Split(' ', ',');
-                    for (int count = 2; count < holder.Length - 1; count++)
+                    gradeHolder = new List<double>();
+                    inputHolder = inputFile.ReadLine();
+                    if (inputHolder != null)
                     {
-                        int.TryParse(holder[count], out newGrade);
+                    holder = inputHolder.Split(new char[] {',', ' '},  StringSplitOptions.RemoveEmptyEntries);
+                    studentName = holder[1] + " " + holder[0];
+                    IDNum = holder[2];
+                    for (int count = 3; count <= holder.Length - 1; count++)
+                    {
+                        newGrade = double.Parse(holder[count]);
                         gradeHolder.Add(newGrade);
                     }
+                    Console.WriteLine(inputHolder);
+                    Student newStudent = new Student(studentName, IDNum, gradeHolder);
+                    studentList.Add(newStudent);
+                    
+                    }   
                 }
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+            foreach (Student student in studentList)
+            {
+                Console.WriteLine(student);
+            }
+
             Console.ReadKey();
+
         }
     }
 }
