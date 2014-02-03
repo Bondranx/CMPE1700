@@ -44,6 +44,7 @@ namespace CMPE1700BrandonFooteICA3
         {
             StreamReader inputFile;
             double newGrade = 0;
+            double GPAnew = 0;
             string studentName = "";
             string IDNum = "";
             string inputHolder = "";
@@ -86,6 +87,11 @@ namespace CMPE1700BrandonFooteICA3
             {
                 Console.WriteLine(student);
             }
+            for (int count = 0; count <= studentList.Count-1; count++)
+            {
+                GPAnew += GPA(studentList[count]._Grades);
+            }
+            Console.WriteLine("Class GPA: " + (GPAnew / studentList.Count));
 
             Console.ReadKey();
 
