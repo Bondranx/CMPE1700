@@ -91,7 +91,7 @@ namespace CMPE1700BrandonFooteICA3
             {
                 GPAnew += GPA(studentList[count]._Grades);
             }
-            Console.WriteLine("Class GPA: " + (GPAnew / studentList.Count));
+            Console.WriteLine("Class GPA: " + (GPAnew / studentList.Count).ToString("F2"));
 
             Console.ReadKey();
 
