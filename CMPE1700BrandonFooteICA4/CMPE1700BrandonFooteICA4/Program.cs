@@ -11,7 +11,7 @@ namespace CMPE1700BrandonFooteICA4
         {
             bool success = false;
             byte userInput;
-            Console.WriteLine("Please enter an 8-bit binary number: ");
+            Console.WriteLine("Please enter an 8-bit number: ");
             do
             {
                     success = byte.TryParse(Console.ReadLine(), out userInput);
