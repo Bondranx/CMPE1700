@@ -9,25 +9,51 @@ namespace CMPE1700BrandonFooteICA4
     {
         static void Main(string[] args)
         {
-            bool success = false;
-            byte userInput;
-            byte byMask = 0x80;
-            Console.WriteLine("Please enter an 8-bit number: ");
+            string repeat;
             do
             {
-                    success = byte.TryParse(Console.ReadLine(), out userInput);
-                    if (success == false)
-                        Console.WriteLine("\nThe value entered is not an 8-bit number please enter a different value\n");
+                bool success = true;
+                byte userInput = 0;
+                byte byMask = 0x01;
+                int output = 0;
+                int input = 0;
+                repeat = "";
+                do
+                {
+                    Console.WriteLine("Please enter an 8-bit binary number: ");
+                    try
+                    {
+                        userInput = Convert.ToByte(Console.ReadLine(), 2);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        success = false;
+                    }
+                }
+                while (success == false);
+
+                success = false;
+
+                do
+                {
+                    Console.Write("which bit position would you like to evaluate for? ");
+                    success = int.TryParse(Console.ReadLine(), out input);
+                }
+                while (success == false);
+
+                byMask <<= input;
+
+                if ((userInput & byMask) == 0)
+                    output = 0;
+                else
+                    output = 1;
+
+                Console.WriteLine("The bit is a " + output);
+                Console.Write("\nRun the program again? Answer Yes or No: ");
+                repeat = Console.ReadLine();
             }
-            while (success == false);
-            
-            for (int i = 0; i < 8; i++)
-            {
-                Console.Write((userInput & byMask) == 0 ? "0" : "1");
-                byMask >>= 1;
-            }
-            Console.WriteLine("\n" + userInput);
-            Console.ReadKey();
+            while (repeat == "Yes");
         }
     }
 }
