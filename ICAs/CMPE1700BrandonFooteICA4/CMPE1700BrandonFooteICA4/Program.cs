@@ -37,10 +37,14 @@ namespace CMPE1700BrandonFooteICA4
 
                 do
                 {
-                    Console.Write("which bit position would you like to evaluate for? ");
+                    Console.Write("which bit position would you like to evaluate for? (0-7) ");
                     success = int.TryParse(Console.ReadLine(), out input);
+                    if (success == false)
+                        Console.WriteLine("That is not a number please enter a value between 0 & 7");
+                    else if (input > 7 || input < 0)
+                        Console.WriteLine("That value is invalid please enter a value between 0 & 7");
                 }
-                while (success == false);
+                while (success == false || input > 7 || input < 0);
 
                 byMask <<= input;
 
