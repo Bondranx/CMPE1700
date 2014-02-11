@@ -67,9 +67,9 @@ namespace CMPE1700BrandonFooteLab1
                     characterList = Reader(characterList, NewStreamReader);
                     success = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine("That is not a valid filename\n");
+                    Console.WriteLine("That is not a valid filename, you must enter a valid filename\n");
                     success = false;
                     
                 }
