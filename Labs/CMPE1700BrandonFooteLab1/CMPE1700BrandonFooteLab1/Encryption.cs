@@ -29,7 +29,7 @@ namespace CMPE1700BrandonFooteLab1
         //*********************************************************************************************
         static private List<char> Reader(List<char> newList, StreamReader input)
         {
-            //integer variable to temporarily stor character information
+            //integer variable to temporarily store character information
             int holder;
             //Try statement attempts to read information from a file
             try
@@ -79,12 +79,12 @@ namespace CMPE1700BrandonFooteLab1
 
         static void Main(string[] args)
         {
-            List<char> characterList = new List<char>();
-            int count = 0;
-            int count2 = 0;
-            string UserInput = "";
-            string encryptionKey = "";
-            bool success = false;
+            List<char> characterList = new List<char>();    //List to stroe file data
+            int count = 0;                                  //counting variable for encrypting 
+            int count2 = 0;                                 //Counting variable for encrypting
+            string UserInput = "";                          //Stores user defined filename
+            string encryptionKey = "";                      //Stores user defined encryption key
+            bool success = false;                           //Stores value for failed/successful user input
             
             //Requests a filename from the user and repeats while the filename is invalid
             do
