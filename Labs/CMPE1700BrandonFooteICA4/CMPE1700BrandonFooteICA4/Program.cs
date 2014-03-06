@@ -34,23 +34,23 @@ namespace CMPE1700BrandonFooteICA4
             {
                 do
                 {
+                    LineRead = File.ReadLine();
                     if (count == LineNumber)
                     {
-                        LineRead = File.ReadLine();
                         output = LineNumber;
+                        
                     }
-                    else if (File.ReadLine() == null)
+                    if (LineRead == null)
                     {
-                        File.ReadLine();
                         output = -1;
                     }
-                    else
+                    else if (LineRead == "")
                     {
                         output = -1;
                     }
                     count++;
                 }
-                while (count < LineNumber);
+                while (count <= LineNumber);
             }
             catch (Exception e)
             {
@@ -93,7 +93,7 @@ namespace CMPE1700BrandonFooteICA4
             }
             else
             {
-                Console.WriteLine("Line Read: " + LineRead + "At line: " + output);
+                Console.WriteLine("Line Read: " + LineRead + " At line: " + output);
             }
             Console.ReadKey();
         }

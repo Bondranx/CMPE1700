@@ -124,7 +124,7 @@ namespace CMPE1700BrandonFooteLab1
                 characterList[count] = (char)(characterList[count] ^ encryptionKey[count2]);
                 count2++;
                 //Resets to first character in encryption key when last letter is reached
-                if (count >= (encryptionKey.Length-1))
+                if (count2 >= (encryptionKey.Length-1))
                     count2 = 0;
                 count++;
             }
