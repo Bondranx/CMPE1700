@@ -279,6 +279,11 @@ namespace CMPE1700BrandonFooteLAB2
             DisplayGame();
         }
 
+        private void lblMines_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

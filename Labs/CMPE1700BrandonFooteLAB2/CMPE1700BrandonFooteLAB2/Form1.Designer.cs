@@ -75,6 +75,7 @@
             this.lblMines.Size = new System.Drawing.Size(38, 13);
             this.lblMines.TabIndex = 3;
             this.lblMines.Text = "Mines:";
+            this.lblMines.Click += new System.EventHandler(this.lblMines_Click);
             // 
             // tmrGameTimer
             // 
