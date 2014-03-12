@@ -75,11 +75,10 @@
             this.lblMines.Size = new System.Drawing.Size(38, 13);
             this.lblMines.TabIndex = 3;
             this.lblMines.Text = "Mines:";
-            this.lblMines.Click += new System.EventHandler(this.lblMines_Click);
             // 
             // tmrGameTimer
             // 
-            this.tmrGameTimer.Interval = 200;
+            this.tmrGameTimer.Interval = 50;
             this.tmrGameTimer.Tick += new System.EventHandler(this.tmrGameTimer_Tick);
             // 
             // frmMain
@@ -105,7 +104,7 @@
         private System.Windows.Forms.CheckBox chbxDebug;
         private System.Windows.Forms.Label lblNumMines;
         private System.Windows.Forms.Label lblMines;
-        private System.Windows.Forms.Timer tmrGameTimer;
+        public System.Windows.Forms.Timer tmrGameTimer;
     }
 }
 
