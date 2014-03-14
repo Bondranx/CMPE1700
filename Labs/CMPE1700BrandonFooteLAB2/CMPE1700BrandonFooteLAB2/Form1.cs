@@ -17,8 +17,6 @@ namespace CMPE1700BrandonFooteLAB2
         public enum EState { Invisible=1, Visible, Guess, Mine };
         public static SCell[,] CellArray = new SCell[10, 10];
         public static bool Invisible = false;
-        public static Point newPoint = new Point();
-        public static Point RightPoint = new Point();
         public static int VisibleNumberOfMines = 10;
         public static int TotalInvisible = 100;
 
@@ -343,11 +341,15 @@ namespace CMPE1700BrandonFooteLAB2
                     ClearEmpty(x + 1, y);
                     ClearEmpty(x, y - 1);
                     ClearEmpty(x, y + 1);
+                    ClearEmpty(x - 1, y - 1);
+                    ClearEmpty(x - 1, y + 1);
+                    ClearEmpty(x + 1, y + 1);
+                    ClearEmpty(x + 1, y - 1);
                     return;
             }
         }
 
-        public static string CheckWin()
+        public static string CheckWin(Point newPoint)
         {
             int mineCount = 0;
             string success = "";
@@ -386,9 +388,13 @@ namespace CMPE1700BrandonFooteLAB2
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
+            Point nPoint = new Point();
+            Point rPoint = new Point();
             ClearGame();
             NewGame();
             DisplayGame();
+            GameField.GetLastMouseLeftClickScaled(out nPoint);
+            GameField.GetLastMouseRightClickScaled(out rPoint);
             btnNewGame.Enabled = false;
             tmrGameTimer.Start();
         }
@@ -411,14 +417,19 @@ namespace CMPE1700BrandonFooteLAB2
 
         private void tmrGameTimer_Tick(object sender, EventArgs e)
         {
+            
+            Point newPoint = new Point();
+            Point RightPoint = new Point();
             bool success = false;
             bool success2 = false;
             string WinLose = "";
-            
             success = GameField.GetLastMouseLeftClickScaled(out newPoint);
             success2 = GameField.GetLastMouseRightClickScaled(out RightPoint);
-            ClearEmpty(newPoint.X, newPoint.Y);
-            if (success2 == true)
+            
+            if (success == true && success2 == false) 
+                ClearEmpty(newPoint.X, newPoint.Y);
+
+            if (success2 == true && success == false)
             {
                 if (CellArray[RightPoint.X, RightPoint.Y]._Estate == EState.Invisible)
                 {
@@ -434,18 +445,26 @@ namespace CMPE1700BrandonFooteLAB2
                     CellArray[RightPoint.X, RightPoint.Y]._Estate = EState.Invisible;
             }
             lblNumMines.Text = VisibleNumberOfMines.ToString();
-            if (success == true || success2 == true)
+            if (success == true && success2 == false)
             {
-                WinLose = CheckWin();
+                WinLose = CheckWin(newPoint);
                 DisplayGame();
             }
+
+            if (success == false && success2 == true)
+            {
+                WinLose = CheckWin(newPoint);
+                DisplayGame();
+            }
+
             if (WinLose == "Game Over")
             {
                 Invisible = true;
                 DisplayGame();
-                GameField.AddText(WinLose, 50, Color.Red);
+                GameField.AddText("Boom", 50, Color.Red);
                 tmrGameTimer.Stop();
                 VisibleNumberOfMines = 10;
+                Invisible = false;
                 btnNewGame.Enabled = true;
             }
             else if (WinLose == "You Win")
@@ -455,12 +474,9 @@ namespace CMPE1700BrandonFooteLAB2
                 GameField.AddText(WinLose, 50, Color.Green);
                 VisibleNumberOfMines = 10;
                 tmrGameTimer.Stop();
+                Invisible = false;
                 btnNewGame.Enabled = true;
             }
         }
-
-
-
-
     }
 }
