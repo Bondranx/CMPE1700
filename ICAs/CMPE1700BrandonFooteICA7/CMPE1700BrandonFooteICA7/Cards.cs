@@ -15,16 +15,14 @@ namespace CMPE1700BrandonFooteICA7
             int Position = 0;
             int count2 = 0;
 
-            Position = newRandom.Next(20, 35);
+            Position = newRandom.Next(15, 40);
 
             for (int count = 0; count < Position; count++)
             {
                 partTwo.Push(Deck.Pop());
             }
 
-            if (partTwo.Count > Deck.Count)
-            {
-                while (Deck.Count != 0 && partTwo.Count != 0)
+                while (Deck.Count != 0 || partTwo.Count != 0)
                 {
 
                     if (count2 == 0 && partTwo.Count != 0)
@@ -35,36 +33,14 @@ namespace CMPE1700BrandonFooteICA7
                     if (count2 == 1)
                         count2 = 0;
                     else if(count2 == 0)
-                        count2++;
+                        count2 = 1;
                 }
-            }
-            else if (partTwo.Count < Deck.Count)
-            {
-                while (Deck.Count != 0 && partTwo.Count != 0)
-                {
-
-                    if (count2 == 0 && Deck.Count != 0)
-                        FinalDeck.Push(Deck.Pop());
-                    else if (count2 == 1 && partTwo.Count != 0)
-                        FinalDeck.Push(partTwo.Pop());
-
-                    if (count2 == 1)
-                        count2 = 0;
-                    else if (count2 == 0)
-                        count2++;
-
-                }
-            }
-
-
-
             return FinalDeck;
         }
 
         static void Main(string[] args)
         {
             Stack<Card> Deck = new Stack<Card>();
-            int count3 = 0;
 
             for (int count = 0; count < 4; count++)
             {
@@ -74,13 +50,16 @@ namespace CMPE1700BrandonFooteICA7
                     Deck.Push(NewCard);
                 }
             }
-            //for(int count = 0; count<4;count++)
+            for(int count = 0; count < 15; count++)
                 Deck = Shuffle(Deck);
-            foreach (Card n in Deck)
-            {
-                Console.WriteLine(n);
-                Console.WriteLine(count3++);
 
+            for (int count = 0; count < 4; count++)
+            {
+                for (int count2 = 0; count2 < 13; count2++)
+                {
+                    Console.WriteLine(Deck.Pop());
+                }
+                Console.WriteLine();
             }
                 Console.ReadLine();
                 

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8341FD21-1988-49CE-A09D-2CB3FEA533B1}</ProjectGuid>
+    <ProjectGuid>{A8D58CE6-69FC-4CEC-A8FF-5DEB5FDDBD9C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CMPE1700BrandonFooteICA7</RootNamespace>
-    <AssemblyName>CMPE1700BrandonFooteICA7</AssemblyName>
+    <RootNamespace>CMPE1700BrandonFooteICA8</RootNamespace>
+    <AssemblyName>CMPE1700BrandonFooteICA8</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -43,12 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Structs.cs" />
-    <Compile Include="Cards.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
