@@ -113,7 +113,7 @@ namespace CMPE1700BrandonFooteICA8
                     break;
                 case "AI":
                     for (int i = 0; i < 10; ++i)
-                        Head = AddItem(Head, rand.Next(0,11));
+                        Head = AddToHead(Head, rand.Next(0,11));
 
                     break;
             }
