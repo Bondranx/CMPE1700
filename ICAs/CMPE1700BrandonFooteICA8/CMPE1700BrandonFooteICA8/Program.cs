@@ -65,23 +65,8 @@ namespace CMPE1700BrandonFooteICA8
 
         static public Node AddItem(Node Head, int Value)
         {
-            Node Fresh = new Node(Value);
-
-            if (Head == null)
-                return Fresh;
-
-            Node Current = Head;
-            while (Current.Next != null)
-                Current = Current.Next;
-            if (Current.Value > Fresh.Value)
-            {
-                Head = AddToTail(Head, Value);
-            }
-            else
-            {
-                Head = AddToHead(Head, Value);
-            }
             return Head;
+
         }
 
         static void PrintListReverse(Node Head)
