@@ -73,7 +73,7 @@ namespace CMPE1700BrandonFooteICA8
             Node Current = Head;
             while (Current.Next != null)
                 Current = Current.Next;
-            if (Current.Value < Head.Value)
+            if (Current.Value > Fresh.Value)
             {
                 Head = AddToTail(Head, Value);
             }
