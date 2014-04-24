@@ -119,7 +119,7 @@ namespace CMPE1700BrandonFooteICA10
                         double.TryParse(temp[3], out Weight);   //parses mark weight to a double
                         int.TryParse(temp[0], out ID);          //Parses Student ID to an int
                         //Creates a stores the values as a new mark structure
-                        Marks newMark = new Marks(Value, OutOf, Weight, ID);    
+                        Marks newMark = new Marks(Value, OutOf, Weight, ID);
                         //Stores marks in a list in dictionray
                         if (myDictionary.ContainsKey(newMark._ID))
                             myDictionary[newMark._ID]._Markslist.Add(newMark);
@@ -140,8 +140,8 @@ namespace CMPE1700BrandonFooteICA10
 
             //foreach (Marks i in secondList)
             //{
-                //if(myDictionary.ContainsKey(i._ID))
-                   // myDictionary[i._ID]._Markslist.Add(i);
+            //if(myDictionary.ContainsKey(i._ID))
+            // myDictionary[i._ID]._Markslist.Add(i);
             //}
 
             do
@@ -306,9 +306,14 @@ namespace CMPE1700BrandonFooteICA10
             string Surname;
             StudentData newData = new StudentData();
             List<Marks> newList = new List<Marks>();
-
-            Console.Write("Please enter the Student ID: ");
-            int.TryParse(Console.ReadLine(), out ID);
+            do
+            {
+                Console.Write("Please enter the Student ID: ");
+                int.TryParse(Console.ReadLine(), out ID);
+                if (ID < 100000 || ID > 999999)
+                    Console.WriteLine("\n\tThat is an invalid ID\n");
+            }
+            while (ID < 100000 || ID > 999999);
             Console.Write("\nPlease enter the student's last name: ");
             Surname = Console.ReadLine();
             Console.Write("\nPlease enter the student's first name: ");
@@ -374,7 +379,7 @@ namespace CMPE1700BrandonFooteICA10
             }
             while (userInput != "y" && userInput != "yes" && userInput != "n" && userInput != "no");
 
-            if(userInput == "y" || userInput == "yes")
+            if (userInput == "y" || userInput == "yes")
             {
             }
             else if (userInput == "n" || userInput == "no")
@@ -384,7 +389,7 @@ namespace CMPE1700BrandonFooteICA10
             return Confirm;
         }
 
-        public static void SaveAndQuit(Dictionary<int,StudentData> newDict)
+        public static void SaveAndQuit(Dictionary<int, StudentData> newDict)
         {
             StreamWriter newWriter = new StreamWriter("Students.txt");
             try
@@ -413,7 +418,7 @@ namespace CMPE1700BrandonFooteICA10
                         newWriter.WriteLine(l.ToString());
                     }
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -422,7 +427,7 @@ namespace CMPE1700BrandonFooteICA10
             {
                 newWriter.Close();
             }
-            
+
         }
     }
 }
