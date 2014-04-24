@@ -33,6 +33,10 @@ namespace CMPE1700BrandonFooteICA10
                 _Weight = Weight;
                 _ID = ID;
             }
+            public override string ToString()
+            {
+                return string.Format("{0} {1} {2} {3}", _ID, _Value, _OutOf, _Weight);
+            }
         }
 
         //Structure to hold Student information
@@ -54,7 +58,7 @@ namespace CMPE1700BrandonFooteICA10
             //To string override
             public override string ToString()
             {
-                return string.Format("{0}, {1} = {2} \n Marks \n", _LastName, _Firstname, _StudentID.ToString());
+                return string.Format("{0}, {1} = {2} \n Marks:", _LastName, _Firstname, _StudentID.ToString());
             }
         }
 
@@ -67,8 +71,6 @@ namespace CMPE1700BrandonFooteICA10
             StreamReader newStreamReader;   //Reads stream from students file
             StreamReader marksReader;       //Reads stream from marks file
             Dictionary<int, StudentData> myDictionary = new Dictionary<int, StudentData>();//Student Dictionary
-            List<Marks> newList = new List<Marks>();        //Creates list for student dictionary
-            List<Marks> secondList = new List<Marks>();     //List to hold marks read in from file
 
             try
             {
@@ -84,7 +86,7 @@ namespace CMPE1700BrandonFooteICA10
                         //Parses the ID number from the string array
                         int.TryParse(temp[2], out ID);
                         //Creates and stores a student value
-                        StudentData newStudent = new StudentData(temp[0], temp[1], ID, newList);
+                        StudentData newStudent = new StudentData(temp[0], temp[1], ID, new List<Marks>());
                         //Stores the student value in the dictionary
                         myDictionary.Add(ID, newStudent);
                     }
@@ -118,8 +120,9 @@ namespace CMPE1700BrandonFooteICA10
                         int.TryParse(temp[0], out ID);          //Parses Student ID to an int
                         //Creates a stores the values as a new mark structure
                         Marks newMark = new Marks(Value, OutOf, Weight, ID);    
-                        //Stores marks in a list
-                        secondList.Add(newMark);
+                        //Stores marks in a list in dictionray
+                        if (myDictionary.ContainsKey(newMark._ID))
+                            myDictionary[newMark._ID]._Markslist.Add(newMark);
                     }
                 }
                 catch (Exception e)
@@ -135,11 +138,11 @@ namespace CMPE1700BrandonFooteICA10
             {
             }
 
-            foreach (Marks i in secondList)
-            {
-                //adds marks to the dictionary
-                myDictionary[i._ID]._Markslist.Add(i);
-            }
+            //foreach (Marks i in secondList)
+            //{
+                //if(myDictionary.ContainsKey(i._ID))
+                   // myDictionary[i._ID]._Markslist.Add(i);
+            //}
 
             do
             {
@@ -180,10 +183,13 @@ namespace CMPE1700BrandonFooteICA10
                     case ConsoleKey.Q:
                         input = QuitConfirm(input);
                         break;
+                    case ConsoleKey.X:
+                        SaveAndQuit(myDictionary);
+                        break;
                 }
             }
             //Loops menu while user input is not Q
-            while (input != ConsoleKey.Q);
+            while (input != ConsoleKey.Q && input != ConsoleKey.X);
         }
 
 
@@ -376,6 +382,47 @@ namespace CMPE1700BrandonFooteICA10
                 Confirm = ConsoleKey.N;
             }
             return Confirm;
+        }
+
+        public static void SaveAndQuit(Dictionary<int,StudentData> newDict)
+        {
+            StreamWriter newWriter = new StreamWriter("Students.txt");
+            try
+            {
+                foreach (StudentData i in newDict.Values)
+                {
+                    newWriter.WriteLine("{0} {1} {2}", i._LastName, i._Firstname, i._StudentID);
+                }
+
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                newWriter.Close();
+            }
+
+            newWriter = new StreamWriter("Marks.txt");
+            try
+            {
+                foreach (StudentData i in newDict.Values)
+                {
+                    foreach (Marks l in i._Markslist)
+                    {
+                        newWriter.WriteLine(l.ToString());
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                newWriter.Close();
+            }
+            
         }
     }
 }
