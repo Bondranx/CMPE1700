@@ -1,4 +1,13 @@
-﻿using System;
+﻿//*********************************************************************************** 
+//Program: Database.cs 
+//Description: Enters and stores student marks data
+//Date: Apr. 24/2013 
+//Author: Brandon Foote 
+//Course: CMPE1700 
+//Class: 2D 
+//***********************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +17,15 @@ namespace CMPE1700BrandonFooteICA10
 {
     class Dictionary
     {
+        //Structure to hold marks data
         public struct Marks
         {
-            public double _Value;
-            public double _OutOf;
-            public double _Weight;
+            public double _Value;   //Mark Value
+            public double _OutOf;   //Value mark is out of
+            public double _Weight;  //Weight of the mark
             public int _ID;
 
+            //Constructor to create each mark
             public Marks(double Value, double OutOf, double Weight, int ID)
             {
                 _Value = Value;
@@ -24,13 +35,15 @@ namespace CMPE1700BrandonFooteICA10
             }
         }
 
+        //Structure to hold Student information
         public struct StudentData
         {
-            public String _LastName;
-            public String _Firstname;
-            public int _StudentID;
-            public List<Marks> _Markslist;
+            public String _LastName;        //Holds student's last name
+            public String _Firstname;       //Holds student's first name
+            public int _StudentID;          //Holds student's ID number
+            public List<Marks> _Markslist;  //Holds a list of student's marks
 
+            //Constructor to build the structure
             public StudentData(String LastName, String FirstName, int StudentID, List<Marks> MarksList)
             {
                 _LastName = LastName;
@@ -38,6 +51,7 @@ namespace CMPE1700BrandonFooteICA10
                 _StudentID = StudentID;
                 _Markslist = MarksList;
             }
+            //To string override
             public override string ToString()
             {
                 return string.Format("{0}, {1} = {2} \n Marks \n", _LastName, _Firstname, _StudentID.ToString());
@@ -46,30 +60,33 @@ namespace CMPE1700BrandonFooteICA10
 
         static void Main(string[] args)
         {
-            ConsoleKey Confirm;
-            ConsoleKey input;
-            String LineRead;
-            String[] temp = null;
-            int ID = 0;
-            int count = 0;
-            StreamReader newStreamReader;
-            StreamReader marksReader;
-            Dictionary<int, StudentData> myDictionary = new Dictionary<int, StudentData>();
-            List<Marks> newList = new List<Marks>();
-            List<Marks> secondList = new List<Marks>();
+            ConsoleKey input;               //Stores user menu inputs
+            String LineRead;                //Holds StreamReader line reads
+            String[] temp = null;           //temp array to hold StreamReader buffer
+            int ID = 0;                     //holds student ID numbers read in from file
+            StreamReader newStreamReader;   //Reads stream from students file
+            StreamReader marksReader;       //Reads stream from marks file
+            Dictionary<int, StudentData> myDictionary = new Dictionary<int, StudentData>();//Student Dictionary
+            List<Marks> newList = new List<Marks>();        //Creates list for student dictionary
+            List<Marks> secondList = new List<Marks>();     //List to hold marks read in from file
 
             try
             {
+                //Opens stream to Students.txt
                 newStreamReader = new StreamReader("Students.txt");
                 try
                 {
+                    //Reads each line in while the next line in not empty
                     while ((LineRead = newStreamReader.ReadLine()) != null)
                     {
+                        //Stores and splits the string that is read in
                         temp = LineRead.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        //Parses the ID number from the string array
                         int.TryParse(temp[2], out ID);
+                        //Creates and stores a student value
                         StudentData newStudent = new StudentData(temp[0], temp[1], ID, newList);
+                        //Stores the student value in the dictionary
                         myDictionary.Add(ID, newStudent);
-                        count++;
                     }
                 }
                 catch (Exception e)
@@ -77,6 +94,7 @@ namespace CMPE1700BrandonFooteICA10
                 }
                 finally
                 {
+                    //Closes the stream to Students.txt
                     newStreamReader.Close();
                 }
             }
@@ -85,18 +103,22 @@ namespace CMPE1700BrandonFooteICA10
             }
             try
             {
+                //Opens a stream to Marks.txt
                 marksReader = new StreamReader("Marks.txt");
                 try
                 {
+                    //Reads each line in from Marks.txt while the next line s not null
                     while ((LineRead = marksReader.ReadLine()) != null)
                     {
-                        double Value, OutOf, Weight;
-                        temp = LineRead.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                        double.TryParse(temp[1], out Value);
-                        double.TryParse(temp[2], out OutOf);
-                        double.TryParse(temp[3], out Weight);
-                        int.TryParse(temp[0], out ID);
-                        Marks newMark = new Marks(Value, OutOf, Weight, ID);
+                        double Value, OutOf, Weight;            //Variables to store data read in from the file
+                        temp = LineRead.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries); //splits the values in the array and stores them
+                        double.TryParse(temp[1], out Value);    //Parses mark value to a double
+                        double.TryParse(temp[2], out OutOf);    //Parses value mark is out of to a double
+                        double.TryParse(temp[3], out Weight);   //parses mark weight to a double
+                        int.TryParse(temp[0], out ID);          //Parses Student ID to an int
+                        //Creates a stores the values as a new mark structure
+                        Marks newMark = new Marks(Value, OutOf, Weight, ID);    
+                        //Stores marks in a list
                         secondList.Add(newMark);
                     }
                 }
@@ -105,6 +127,7 @@ namespace CMPE1700BrandonFooteICA10
                 }
                 finally
                 {
+                    //closes stream to Marks.txt
                     marksReader.Close();
                 }
             }
@@ -114,11 +137,13 @@ namespace CMPE1700BrandonFooteICA10
 
             foreach (Marks i in secondList)
             {
+                //adds marks to the dictionary
                 myDictionary[i._ID]._Markslist.Add(i);
             }
 
             do
             {
+                //Displays the menu for the database
                 Console.WriteLine("{0} Student Records found", myDictionary.Count);
                 Console.WriteLine("");
                 Console.WriteLine("A - Add new student");
@@ -131,8 +156,10 @@ namespace CMPE1700BrandonFooteICA10
                 Console.WriteLine("");
                 Console.Write("Your choice? ");
 
+                //Reads user menu commands
                 input = Console.ReadKey(true).Key;
 
+                //Switch to control the menu
                 switch (input)
                 {
                     case ConsoleKey.A:
@@ -155,13 +182,21 @@ namespace CMPE1700BrandonFooteICA10
                         break;
                 }
             }
+            //Loops menu while user input is not Q
             while (input != ConsoleKey.Q);
         }
 
+
+        //******************************************************************************************** 
+        //Method: public static void ListAll(Dictionary<int, StudentData> newDict)
+        //Purpose: Lists all student marks
+        //Parameters:  Dictionary<int, StudentData> newDict
+        //Returns: nothing 
+        //*********************************************************************************************
         public static void ListAll(Dictionary<int, StudentData> newDict)
         {
-            string temp = "";
-            int count = 0;
+            string temp = "";   //Varaible to store a string
+            int count = 0;      //Variable to count
             List<String> templist = new List<string>();
             Dictionary<String, StudentData> tempDict = new Dictionary<string, StudentData>();
             foreach (KeyValuePair<int, StudentData> e in newDict)
@@ -193,6 +228,12 @@ namespace CMPE1700BrandonFooteICA10
             Console.WriteLine("");
         }
 
+        //******************************************************************************************** 
+        //Method: public static void SearchByID(Dictionary<int, StudentData> newDict)
+        //Purpose: Searches through students by ID
+        //Parameters:  Dictionary<int, StudentData> newDict
+        //Returns: nothing 
+        //*********************************************************************************************
         public static void SearchByID(Dictionary<int, StudentData> newDict)
         {
             int SearchID;
@@ -214,6 +255,12 @@ namespace CMPE1700BrandonFooteICA10
             }
         }
 
+        //******************************************************************************************** 
+        //Method: public static void SearchByLastName(Dictionary<int, StudentData> newDict)
+        //Purpose: Searches through students by Last Name
+        //Parameters:  Dictionary<int, StudentData> newDict
+        //Returns: nothing 
+        //*********************************************************************************************
         public static void SearchByLastName(Dictionary<int, StudentData> newDict)
         {
             string nameInput = "";
@@ -240,6 +287,12 @@ namespace CMPE1700BrandonFooteICA10
             }
         }
 
+        //******************************************************************************************** 
+        //public static Dictionary<int, StudentData> AddStudent(Dictionary<int, StudentData> newDict)
+        //Purpose: Add students to the database
+        //Parameters:  Dictionary<int, StudentData> newDict
+        //Returns: newDict
+        //*********************************************************************************************
         public static Dictionary<int, StudentData> AddStudent(Dictionary<int, StudentData> newDict)
         {
             int ID;
@@ -266,6 +319,12 @@ namespace CMPE1700BrandonFooteICA10
             return newDict;
         }
 
+        //******************************************************************************************** 
+        //public static Dictionary<int, StudentData> Addmark(Dictionary<int, StudentData> newDict)
+        //Purpose: Add student marks to the database
+        //Parameters:  Dictionary<int, StudentData> newDict
+        //Returns: newDict
+        //*********************************************************************************************
         public static Dictionary<int, StudentData> Addmark(Dictionary<int, StudentData> newDict)
         {
             Marks newMark;
@@ -293,6 +352,12 @@ namespace CMPE1700BrandonFooteICA10
             return newDict;
         }
 
+        //******************************************************************************************** 
+        //public static ConsoleKey QuitConfirm(ConsoleKey Confirm)
+        //Purpose: Confirms user quit command
+        //Parameters:  Consolekey Confirm
+        //Returns: Confirm
+        //*********************************************************************************************
         public static ConsoleKey QuitConfirm(ConsoleKey Confirm)
         {
             string userInput = null;
