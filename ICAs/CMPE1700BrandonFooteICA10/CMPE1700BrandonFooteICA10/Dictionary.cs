@@ -37,7 +37,7 @@ namespace CMPE1700BrandonFooteICA10
             Dictionary<int,StudentData> myDictionary = new Dictionary<int,StudentData>();
             try
             {
-                newStreamReader = new StreamReader("StudentData.txt");
+                newStreamReader = new StreamReader("Students.txt");
                 try
                 {
                     while ((LineRead = newStreamReader.ReadLine()) != null)
